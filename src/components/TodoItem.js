@@ -12,7 +12,9 @@ const TodoItem = ({todoObj, onDelete, onEdit}) => {
         <div>
             <h1>{todoObj.task}</h1>
             <p>{todoObj.student}</p>
-            <input type="checkbox" onChange={editStatus} value={todoObj.isCompleted} />
+            <h3>{todoObj.id}</h3>
+            {todoObj.isCompleted ? "esta completado" : "no esta completado"}
+            <input type="checkbox" onChange={editStatus} checked={todoObj.isCompleted} />
             <button onClick={() => onDelete(todoObj.id)}>Eliminar</button>
         </div>
     )

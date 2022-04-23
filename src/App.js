@@ -5,6 +5,7 @@ import TodoItem from './components/TodoItem';
 import { useForm } from 'react-hook-form';
 import postNewUser from './services/postNewUser';
 import deleteTodo from './services/deleteTodo';
+import editTodo from './services/editTodo';
 
 function App() {
 
@@ -31,13 +32,16 @@ function App() {
   useEffect(() => {
     deleteTodo(idDelete)
       .then((res) => {
-          console.log("Se elimino el todo con el id", idDelete )
+        setTodos(filterTodo(idDelete))
       })
   }, [idDelete])
 
   useEffect(() => {
-
-  }, [])
+    editTodo(idEdit, editObj)
+      .then(res => {
+        console.log(res)
+      })
+  }, [idEdit, editObj])
 
   const onSubmit = (res) => {
     console.log(res)
@@ -48,8 +52,13 @@ function App() {
     setIdDelete(id)
   }
   const handleEdit = (id, obj) => {
-    setIdEdit()
+    setIdEdit(id)
+    setEditObj(obj)
+  }
 
+  const filterTodo = (id) => {
+     const array = todos.filter((item) => item.id !== id)
+     return array
   }
 
   const list = todos.map((todo) => <TodoItem key={todo.id} todoObj={todo} onDelete={handleDelete} onEdit={handleEdit} />)
