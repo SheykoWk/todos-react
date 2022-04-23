@@ -24,8 +24,7 @@ function App() {
       })
     postNewUser(newUser)
       .then((response) => {
-        console.log(response)
-        setTodos([...todos, response.data])
+        setTodos([ response.data, ...todos])
       })
   }, [newUser])
 
@@ -40,6 +39,7 @@ function App() {
     editTodo(idEdit, editObj)
       .then(res => {
         console.log(res)
+        setTodos([res.data,...filterTodo(idEdit)])
       })
   }, [idEdit, editObj])
 

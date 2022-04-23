@@ -6,7 +6,7 @@ const TodoItem = ({todoObj, onDelete, onEdit}) => {
             student: todoObj.student,
             isCompleted: e.target.checked
         })
-    }
+    } 
 
     return(
         <div>
