@@ -4,12 +4,14 @@ import getAllTodos from './services/getAllTodos';
 import TodoItem from './components/TodoItem';
 import { useForm } from 'react-hook-form';
 import postNewUser from './services/postNewUser';
+import deleteTodo from './services/deleteTodo';
 
 function App() {
 
   const {register, handleSubmit, reset} = useForm()
   const [todos, setTodos] = useState([])
   const [newUser, setNewUser] = useState({})
+  const [idDelete, setIdDelete] = useState("")
 
   useEffect(() => {
     getAllTodos()
@@ -24,12 +26,24 @@ function App() {
       })
   }, [newUser])
 
+  useEffect(() => {
+    deleteTodo(idDelete)
+      .then((res) => {
+          console.log("Se elimino el todo con el id", idDelete )
+      })
+  }, [idDelete])
+
   const onSubmit = (res) => {
     console.log(res)
     setNewUser(res)
   }
 
-  const list = todos.map((todo) => <TodoItem key={todo.id} todoObj={todo} />)
+  const handleDelete = (id) => {
+    setIdDelete(id)
+
+  }
+
+  const list = todos.map((todo) => <TodoItem key={todo.id} todoObj={todo} onDelete={handleDelete} />)
 
   return (
     <div className="App">
