@@ -12,6 +12,8 @@ function App() {
   const [todos, setTodos] = useState([])
   const [newUser, setNewUser] = useState({})
   const [idDelete, setIdDelete] = useState("")
+  const [idEdit, setIdEdit] = useState('')
+  const [editObj, setEditObj] = useState({})
 
   useEffect(() => {
     getAllTodos()
@@ -33,6 +35,10 @@ function App() {
       })
   }, [idDelete])
 
+  useEffect(() => {
+
+  }, [])
+
   const onSubmit = (res) => {
     console.log(res)
     setNewUser(res)
@@ -40,10 +46,13 @@ function App() {
 
   const handleDelete = (id) => {
     setIdDelete(id)
+  }
+  const handleEdit = (id, obj) => {
+    setIdEdit()
 
   }
 
-  const list = todos.map((todo) => <TodoItem key={todo.id} todoObj={todo} onDelete={handleDelete} />)
+  const list = todos.map((todo) => <TodoItem key={todo.id} todoObj={todo} onDelete={handleDelete} onEdit={handleEdit} />)
 
   return (
     <div className="App">
